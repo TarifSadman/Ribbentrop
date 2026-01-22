@@ -1,48 +1,107 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Core Palette */
+  --color-mint-green: #BFDCD3;
+  --color-pastel-yellow: #F6E7A6;
+  --color-charcoal-gray: #5E5E5E;
+  --color-off-white: #FBF4EF;
+  --color-blush-pink: #F3C9C9;
+  --color-gold: #D8B98A;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Semantic Map */
+  --primary: var(--color-mint-green);
+  --primary-foreground: var(--color-charcoal-gray);
+
+  --secondary: var(--color-pastel-yellow);
+  --secondary-foreground: var(--color-charcoal-gray);
+
+  --accent: var(--color-gold);
+  --accent-foreground: #FFFFFF;
+
+  --background: var(--color-off-white);
+  --foreground: var(--color-charcoal-gray);
+
+  --card: #FFFFFF;
+  --card-foreground: var(--color-charcoal-gray);
+
+  --popover: #FFFFFF;
+  --popover-foreground: var(--color-charcoal-gray);
+
+  --muted: var(--color-blush-pink);
+  --muted-foreground: var(--color-charcoal-gray);
+
+  --border: #e8e8e8;
+  --input: #e8e8e8;
+  --ring: var(--color-gold);
+
+  --radius: 0.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1a1a;
+    --foreground: #FBF4EF;
+    --card: #2a2a2a;
+    --card-foreground: #FBF4EF;
+    --border: #404040;
+    --input: #404040;
+
+    /* Adjust these for dark mode if needed, for now keeping brand colors */
+    --primary: #8FB4A8;
+    /* slightly darker mint */
+    --secondary: #D4C586;
+    /* slightly darker yellow */
+    --muted: #5E5E5E;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Global button and link styles */
+/* Base utility classes for the new theme */
+.text-primary {
+  color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+/* Global smooth transitions */
 button,
-a,
-[role="button"] {
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: not-allowed;
-}
-
-/* Remove default link styling if needed */
 a {
-  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-/* Smooth transitions */
-button,
-a {
-  transition: all 0.2s ease-in-out;
+/* Custom Button Styles */
+.btn-primary {
+  @apply bg-[#BFDCD3] text-[#5E5E5E] font-medium px-6 py-2 rounded-lg hover:bg-[#a8cdc1] hover:shadow-md active:transform active:scale-95 transition-all;
+}
+
+.btn-secondary {
+  @apply bg-[#F6E7A6] text-[#5E5E5E] font-medium px-6 py-2 rounded-lg hover:bg-[#edd985] hover:shadow-md active:transform active:scale-95 transition-all;
+}
+
+.btn-accent {
+  @apply bg-[#D8B98A] text-[#5E5E5E] font-medium px-6 py-2 rounded-lg hover:bg-[#c6a572] hover:shadow-md active:transform active:scale-95 transition-all;
 }

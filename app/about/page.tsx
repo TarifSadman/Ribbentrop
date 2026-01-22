@@ -3,14 +3,14 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-[var(--background)]">
       {/* Page Header */}
-      <div className="bg-white dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-[var(--card)] py-12 px-4 sm:px-6 lg:px-8 border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-[var(--foreground)] mb-2">
             About Ribbentrop
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-[var(--muted-foreground)]">
             Learn more about our brand and mission
           </p>
         </div>
@@ -20,25 +20,25 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-3xl font-bold text-[var(--foreground)] mb-6">
               Our Story
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+            <p className="text-lg text-[var(--foreground)]/80 mb-4 leading-relaxed">
               Ribbentrop was founded with a simple vision: to bring exceptional quality
               and timeless elegance to everyday life. We believe that superior craftsmanship
               and attention to detail matter.
             </p>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+            <p className="text-lg text-[var(--foreground)]/80 mb-4 leading-relaxed">
               Each product in our collection is carefully curated and sourced from artisans
               who share our commitment to excellence. We pride ourselves on offering items
               that not only look beautiful but stand the test of time.
             </p>
-            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-lg text-[var(--foreground)]/80 leading-relaxed">
               Our mission is to help our customers surround themselves with products they
               truly love and can depend on for years to come.
             </p>
           </div>
-          <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
+          <div className="relative h-96 rounded-lg overflow-hidden shadow-lg border border-[var(--border)]">
             <Image
               src="/hero.jpg"
               alt="Ribbentrop Story"
@@ -50,15 +50,15 @@ export default function About() {
 
         {/* Values Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
+          <h2 className="text-3xl font-bold text-[var(--foreground)] mb-12 text-center">
             Our Values
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Quality */}
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm">
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-[var(--card)] p-8 rounded-lg shadow-sm border border-[var(--border)]">
+              <div className="w-12 h-12 bg-[var(--muted)] rounded-lg flex items-center justify-center mb-4">
                 <svg
-                  className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  className="w-6 h-6 text-[var(--primary-foreground)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -71,19 +71,19 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">
                 Quality
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-[var(--muted-foreground)]">
                 We never compromise on quality. Every product meets our strict standards.
               </p>
             </div>
 
             {/* Sustainability */}
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm">
-              <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-[var(--card)] p-8 rounded-lg shadow-sm border border-[var(--border)]">
+              <div className="w-12 h-12 bg-[var(--secondary)] rounded-lg flex items-center justify-center mb-4">
                 <svg
-                  className="w-6 h-6 text-green-600 dark:text-green-400"
+                  className="w-6 h-6 text-[var(--secondary-foreground)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -96,19 +96,19 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">
                 Sustainability
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-[var(--muted-foreground)]">
                 We&apos;re committed to eco-friendly practices and responsible sourcing.
               </p>
             </div>
 
             {/* Customer Care */}
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+            <div className="bg-[var(--card)] p-8 rounded-lg shadow-sm border border-[var(--border)]">
+              <div className="w-12 h-12 bg-[var(--accent)] rounded-lg flex items-center justify-center mb-4">
                 <svg
-                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  className="w-6 h-6 text-[var(--accent-foreground)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -121,10 +121,10 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">
                 Customer Care
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-[var(--muted-foreground)]">
                 Your satisfaction is our priority. We&apos;re here to help 24/7.
               </p>
             </div>
@@ -132,16 +132,16 @@ export default function About() {
         </div>
 
         {/* CTA */}
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+        <div className="bg-[var(--foreground)] rounded-lg p-12 text-center text-[var(--background)]">
+          <h2 className="text-3xl font-bold mb-4">
             Ready to Shop?
           </h2>
-          <p className="text-purple-100 mb-8">
+          <p className="text-[var(--background)]/80 mb-8">
             Explore our curated collection and find something you love.
           </p>
           <Link
             href="/products"
-            className="inline-flex items-center justify-center px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition"
+            className="inline-flex items-center justify-center px-8 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] font-semibold rounded-lg hover:bg-[var(--primary)]/90 transition"
           >
             View Products
           </Link>

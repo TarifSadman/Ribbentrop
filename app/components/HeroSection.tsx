@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 const HERO_IMAGES = [
   "/hero1.jpg",
-  "/hero2.jpg",
+  "/hero222.png",
   "/hero3.jpg",
 ];
 
@@ -42,15 +42,14 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full h-96 md:h-[500px] overflow-hidden bg-gray-900 group">
+    <section className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-gray-900 group">
       {/* Carousel Images */}
       <div className="relative w-full h-full">
         {HERO_IMAGES.map((image, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentIndex ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentIndex ? "opacity-100" : "opacity-0"
+              }`}
           >
             <Image
               src={image}
@@ -64,7 +63,7 @@ export default function HeroSection() {
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-purple-800/70 to-black/60" />
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
       <div className="relative h-full flex items-center justify-start z-10">
@@ -80,13 +79,13 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/products"
-              className="inline-flex items-center justify-center px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition"
+              className="btn-primary"
             >
               Shop Now
             </Link>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center px-8 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg transition border border-white/50"
+              className="btn-accent"
             >
               Learn More
             </Link>
@@ -130,11 +129,10 @@ export default function HeroSection() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-2 h-2 rounded-full transition ${
-              index === currentIndex
-                ? "bg-white w-8"
-                : "bg-white/50 hover:bg-white/75"
-            }`}
+            className={`w-2 h-2 rounded-full transition ${index === currentIndex
+              ? "bg-white w-8"
+              : "bg-white/50 hover:bg-white/75"
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

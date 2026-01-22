@@ -1,12 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { PRODUCTS } from "@/app/lib/products";
 import ProductCard from "@/app/components/ProductCard";
 
-export default function ProductsPage() {
+function ProductsContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category");
+
   const [sortBy, setSortBy] = useState("featured");
   const [filterCategory, setFilterCategory] = useState("all");
+
+  // Sync with URL param
+  useEffect(() => {
+    if (initialCategory) {
+      // Find the matching category from PRODUCTS to ensure case matching if needed, 
+      // or just use the param if it matches exactly.
+      // The links in Header use "Bags", "Home", "Accessories" which match PRODUCTS data.
+      setFilterCategory(initialCategory);
+    } else {
+      setFilterCategory("all");
+    }
+  }, [initialCategory]);
 
   let displayProducts = [...PRODUCTS];
 
@@ -35,14 +52,14 @@ export default function ProductsPage() {
   const categories = ["all", ...new Set(PRODUCTS.map((p) => p.category))];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-[var(--background)]">
       {/* Page Header */}
-      <div className="bg-white dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-[var(--card)] py-12 px-4 sm:px-6 lg:px-8 border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-[var(--foreground)] mb-2">
             Our Products
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-[var(--muted-foreground)]">
             Browse our complete collection of premium items
           </p>
         </div>
@@ -53,10 +70,10 @@ export default function ProductsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar Filters */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-sm">
+            <div className="bg-[var(--card)] rounded-lg p-6 shadow-sm border border-[var(--border)]">
               {/* Category Filter */}
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-[var(--foreground)] mb-4">
                   Category
                 </h3>
                 <div className="space-y-3">
@@ -70,11 +87,21 @@ export default function ProductsPage() {
                         name="category"
                         value={category}
                         checked={filterCategory === category}
-                        onChange={(e) => setFilterCategory(e.target.value)}
-                        className="w-4 h-4 text-purple-600 rounded"
+                        onChange={(e) => {
+                          const newCategory = e.target.value;
+                          setFilterCategory(newCategory);
+                          const params = new URLSearchParams(searchParams);
+                          if (newCategory === "all") {
+                            params.delete("category");
+                          } else {
+                            params.set("category", newCategory);
+                          }
+                          router.push(`/products?${params.toString()}`);
+                        }}
+                        className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)] rounded cursor-pointer accent-[var(--primary)]"
                       />
-                      <span className="ml-3 text-gray-700 dark:text-gray-300 capitalize">
-                        {category === "all" ? "All Products" : category}
+                      <span className="ml-3 text-[var(--foreground)] capitalize hover:text-[var(--primary)] transition">
+                        {category === "all" ? "All Products" : category && category.replace("-", " ")}
                       </span>
                     </label>
                   ))}
@@ -83,13 +110,13 @@ export default function ProductsPage() {
 
               {/* Sort By */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-[var(--foreground)] mb-4">
                   Sort By
                 </h3>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 >
                   <option value="featured">Featured</option>
                   <option value="price-low">Price: Low to High</option>
@@ -109,8 +136,8 @@ export default function ProductsPage() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white dark:bg-slate-900 rounded-lg p-12 text-center">
-                <p className="text-gray-500 dark:text-gray-400 text-lg">
+              <div className="bg-[var(--card)] rounded-lg p-12 text-center border border-[var(--border)]">
+                <p className="text-[var(--muted-foreground)] text-lg">
                   No products found in this category.
                 </p>
               </div>
@@ -119,5 +146,13 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-12 text-center">Loading...</div>}>
+      <ProductsContent />
+    </Suspense>
   );
 }

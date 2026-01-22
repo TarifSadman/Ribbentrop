@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-gray-300 py-12">
+    <footer className="bg-[var(--foreground)] text-[var(--background)] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
@@ -16,29 +16,29 @@ export default function Footer() {
                 height={32}
                 className="rounded-lg"
               />
-              <span className="text-xl font-bold text-white">Ribbentrop</span>
+              <span className="text-xl font-bold text-[var(--background)]">Ribbentrop</span>
             </div>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-[var(--background)]/80">
               Premium quality products for the modern home.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="font-semibold text-[var(--primary)] mb-4">Quick Links</h4>
+            <ul className="space-y-2 text-sm text-[var(--background)]/80">
               <li>
-                <Link href="/" className="hover:text-white transition">
+                <Link href="/" className="hover:text-[var(--primary)] transition">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:text-white transition">
+                <Link href="/products" className="hover:text-[var(--primary)] transition">
                   Products
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition">
+                <Link href="/about" className="hover:text-[var(--primary)] transition">
                   About Us
                 </Link>
               </li>
@@ -47,20 +47,20 @@ export default function Footer() {
 
           {/* Customer Service */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Customer Service</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="font-semibold text-[var(--primary)] mb-4">Customer Service</h4>
+            <ul className="space-y-2 text-sm text-[var(--background)]/80">
               <li>
-                <Link href="/contact" className="hover:text-white transition">
+                <Link href="/contact" className="hover:text-[var(--primary)] transition">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition">
+                <Link href="#" className="hover:text-[var(--primary)] transition">
                   Shipping Info
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition">
+                <Link href="#" className="hover:text-[var(--primary)] transition">
                   Returns
                 </Link>
               </li>
@@ -69,19 +69,19 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Newsletter</h4>
-            <p className="text-sm text-gray-400 mb-4">
+            <h4 className="font-semibold text-[var(--primary)] mb-4">Newsletter</h4>
+            <p className="text-sm text-[var(--background)]/80 mb-4">
               Subscribe for exclusive offers
             </p>
             <form className="flex">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-2 rounded-l-lg bg-slate-800 text-white placeholder-gray-500 focus:outline-none"
+                className="flex-1 px-4 py-2 rounded-l-lg bg-[var(--background)] text-[var(--foreground)] placeholder-gray-500 focus:outline-none"
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-r-lg transition font-medium"
+                className="btn-primary rounded-l-none rounded-r-lg"
               >
                 Subscribe
               </button>
@@ -90,15 +90,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-gray-400">
+        <div className="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center text-[var(--background)]/60">
+          <p className="text-sm">
             &copy; 2026 Ribbentrop. All rights reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0 text-sm">
-            <Link href="#" className="hover:text-white transition">
+            <Link href="#" className="hover:text-[var(--primary)] transition">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-white transition">
+            <Link href="#" className="hover:text-[var(--primary)] transition">
               Terms of Service
             </Link>
           </div>

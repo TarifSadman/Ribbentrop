@@ -25,7 +25,7 @@ export const PRODUCTS: Product[] = [
     description: "Elegant home decor collection for modern living spaces",
     price: 189.99,
     image: "/hero.jpg",
-    category: "Home",
+    category: "Home-Decor",
     inStock: true,
   },
   {
@@ -52,7 +52,7 @@ export const PRODUCTS: Product[] = [
     description: "Contemporary glass collection with elegant styling",
     price: 149.99,
     image: "/demo image22.jpg",
-    category: "Home",
+    category: "Home-Decor",
     inStock: true,
   },
   {
@@ -133,7 +133,7 @@ export const PRODUCTS: Product[] = [
     description: "Expertly crafted collection for the discerning taste",
     price: 159.99,
     image: "/pexels-prod.jpg",
-    category: "Home",
+    category: "Home-Decor",
     inStock: true,
   },
   {

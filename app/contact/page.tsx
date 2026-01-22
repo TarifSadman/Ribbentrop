@@ -31,14 +31,14 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-[var(--background)]">
       {/* Page Header */}
-      <div className="bg-white dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-[var(--card)] py-12 px-4 sm:px-6 lg:px-8 border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-[var(--foreground)] mb-2">
             Contact Us
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-[var(--muted-foreground)]">
             We&apos;d love to hear from you. Get in touch with us today.
           </p>
         </div>
@@ -48,10 +48,10 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {/* Email */}
-          <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm text-center">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[var(--card)] p-8 rounded-lg shadow-sm text-center border border-[var(--border)]">
+            <div className="w-12 h-12 bg-[var(--muted)] rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                className="w-6 h-6 text-[var(--primary)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -64,22 +64,22 @@ export default function Contact() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">
               Email
             </h3>
             <a
               href="mailto:hello@ribbentrop.com"
-              className="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400"
+              className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition"
             >
               hello@ribbentrop.com
             </a>
           </div>
 
           {/* Phone */}
-          <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm text-center">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[var(--card)] p-8 rounded-lg shadow-sm text-center border border-[var(--border)]">
+            <div className="w-12 h-12 bg-[var(--muted)] rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                className="w-6 h-6 text-[var(--primary)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -92,22 +92,22 @@ export default function Contact() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">
               Phone
             </h3>
             <a
               href="tel:+1234567890"
-              className="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400"
+              className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition"
             >
               +1 (234) 567-890
             </a>
           </div>
 
           {/* Location */}
-          <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm text-center">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[var(--card)] p-8 rounded-lg shadow-sm text-center border border-[var(--border)]">
+            <div className="w-12 h-12 bg-[var(--muted)] rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                className="w-6 h-6 text-[var(--primary)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -126,10 +126,10 @@ export default function Contact() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">
               Location
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-[var(--muted-foreground)]">
               123 Business Street<br />
               New York, NY 10001
             </p>
@@ -137,13 +137,13 @@ export default function Contact() {
         </div>
 
         {/* Contact Form */}
-        <div className="max-w-2xl mx-auto bg-white dark:bg-slate-900 rounded-lg shadow-sm p-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <div className="max-w-2xl mx-auto bg-[var(--card)] rounded-lg shadow-sm p-8 border border-[var(--border)]">
+          <h2 className="text-2xl font-bold text-[var(--foreground)] mb-6">
             Send us a Message
           </h2>
 
           {submitted && (
-            <div className="mb-6 p-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-lg">
+            <div className="mb-6 p-4 bg-[var(--muted)] text-[var(--foreground)] rounded-lg border border-[var(--border)]">
               Thank you for your message! We&apos;ll get back to you soon.
             </div>
           )}
@@ -151,7 +151,7 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
                 Name
               </label>
               <input
@@ -160,14 +160,14 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 placeholder="Your name"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
                 Email
               </label>
               <input
@@ -176,14 +176,14 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 placeholder="your@email.com"
               />
             </div>
 
             {/* Subject */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
                 Subject
               </label>
               <input
@@ -192,14 +192,14 @@ export default function Contact() {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 placeholder="Subject"
               />
             </div>
 
             {/* Message */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
                 Message
               </label>
               <textarea
@@ -208,7 +208,7 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 placeholder="Your message here..."
               />
             </div>
@@ -216,7 +216,7 @@ export default function Contact() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition"
+              className="w-full btn-primary py-3 px-6 rounded-lg transition"
             >
               Send Message
             </button>
