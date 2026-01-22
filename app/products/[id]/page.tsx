@@ -132,7 +132,7 @@ export default function ProductPage() {
                     Add to Cart ({quantity})
                   </button>
                   <a
-                    href="https://www.facebook.com/RibbentropCtg"
+                    href="https://m.me/101975388289954"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-center w-full border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)]/10 font-semibold py-3 px-6 rounded-lg transition"
