@@ -100,7 +100,7 @@ export default function About() {
                 Sustainability
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                We're committed to eco-friendly practices and responsible sourcing.
+                We&apos;re committed to eco-friendly practices and responsible sourcing.
               </p>
             </div>
 
@@ -125,7 +125,7 @@ export default function About() {
                 Customer Care
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Your satisfaction is our priority. We're here to help 24/7.
+                Your satisfaction is our priority. We&apos;re here to help 24/7.
               </p>
             </div>
           </div>

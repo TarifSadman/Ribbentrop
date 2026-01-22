@@ -39,7 +39,7 @@ export default function Contact() {
             Contact Us
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            We'd love to hear from you. Get in touch with us today.
+            We&apos;d love to hear from you. Get in touch with us today.
           </p>
         </div>
       </div>
@@ -144,7 +144,7 @@ export default function Contact() {
 
           {submitted && (
             <div className="mb-6 p-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-lg">
-              Thank you for your message! We'll get back to you soon.
+              Thank you for your message! We&apos;ll get back to you soon.
             </div>
           )}
 

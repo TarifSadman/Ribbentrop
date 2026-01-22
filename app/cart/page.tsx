@@ -60,10 +60,10 @@ export default function CartPage() {
                 {items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center gap-4 p-6 border-b border-gray-200 dark:border-slate-700 last:border-b-0"
+                    className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 sm:p-6 border-b border-gray-200 dark:border-slate-700 last:border-b-0"
                   >
                     {/* Product Image */}
-                    <div className="relative w-24 h-24 flex-shrink-0">
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0">
                       <Image
                         src={item.image}
                         alt={item.name}
@@ -72,52 +72,55 @@ export default function CartPage() {
                       />
                     </div>
 
-                    {/* Product Details */}
-                    <div className="flex-1 min-w-0">
-                      <Link href={`/products/${item.id}`}>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400">
-                          {item.name}
-                        </h3>
-                      </Link>
-                      <p className="text-gray-600 dark:text-gray-400">
-                        ${item.price.toFixed(2)} each
-                      </p>
-                    </div>
+                    {/* Product Details - Mobile/Desktop Layout */}
+                    <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                      {/* Name and Price */}
+                      <div className="flex-1 min-w-0">
+                        <Link href={`/products/${item.id}`}>
+                          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 line-clamp-2">
+                            {item.name}
+                          </h3>
+                        </Link>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          ${item.price.toFixed(2)} each
+                        </p>
+                      </div>
 
-                    {/* Quantity */}
-                    <div className="flex items-center border border-gray-300 dark:border-slate-600 rounded-lg">
-                      <button
-                        onClick={() =>
-                          updateQuantity(item.id, item.quantity - 1)
-                        }
-                        className="px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800"
-                      >
-                        −
-                      </button>
-                      <span className="px-4 py-2 text-gray-900 dark:text-white font-medium">
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() =>
-                          updateQuantity(item.id, item.quantity + 1)
-                        }
-                        className="px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800"
-                      >
-                        +
-                      </button>
-                    </div>
+                      {/* Quantity - Mobile Inline */}
+                      <div className="flex items-center gap-3 sm:gap-0 sm:border sm:border-gray-300 sm:dark:border-slate-600 sm:rounded-lg">
+                        <button
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity - 1)
+                          }
+                          className="px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 rounded sm:rounded-none"
+                        >
+                          −
+                        </button>
+                        <span className="px-3 sm:px-4 py-1 sm:py-2 text-gray-900 dark:text-white font-medium text-center min-w-[40px]">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
+                          className="px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 rounded sm:rounded-none"
+                        >
+                          +
+                        </button>
+                      </div>
 
-                    {/* Subtotal */}
-                    <div className="text-right min-w-max">
-                      <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </p>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 mt-2"
-                      >
-                        Remove
-                      </button>
+                      {/* Subtotal - Mobile Right Aligned */}
+                      <div className="text-right sm:text-left flex sm:flex-col items-center sm:items-start justify-between sm:justify-start gap-2">
+                        <span className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </span>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-xs sm:text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
