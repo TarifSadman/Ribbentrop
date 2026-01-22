@@ -40,7 +40,7 @@ export default function About() {
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-lg border border-[var(--border)]">
             <Image
-              src="/hero.jpg"
+              src="/hero222.png"
               alt="Ribbentrop Story"
               fill
               className="object-cover"

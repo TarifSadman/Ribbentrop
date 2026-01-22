@@ -131,9 +131,14 @@ export default function ProductPage() {
                   <button className="w-full btn-primary py-3 px-6 rounded-lg transition text-base">
                     Add to Cart ({quantity})
                   </button>
-                  <button className="w-full border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)]/10 font-semibold py-3 px-6 rounded-lg transition">
-                    Save for Later
-                  </button>
+                  <a
+                    href="https://www.facebook.com/RibbentropCtg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-center w-full border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)]/10 font-semibold py-3 px-6 rounded-lg transition"
+                  >
+                    Buy Now
+                  </a>
                 </div>
               ) : (
                 <button className="w-full bg-gray-300 text-gray-500 cursor-not-allowed font-semibold py-3 px-6 rounded-lg">

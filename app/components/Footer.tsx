@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-[var(--foreground)] text-[var(--background)] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -21,6 +21,20 @@ export default function Footer() {
             <p className="text-sm text-[var(--background)]/80">
               Premium quality products for the modern home.
             </p>
+            <a
+              href="https://www.facebook.com/RibbentropCtg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 hover:opacity-80 transition"
+            >
+              <Image
+                src="/fb-icon.png"
+                alt="Facebook"
+                width={300}
+                height={300}
+                className="w-[90%] h-auto"
+              />
+            </a>
           </div>
 
           {/* Quick Links */}
@@ -66,33 +80,12 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="font-semibold text-[var(--primary)] mb-4">Newsletter</h4>
-            <p className="text-sm text-[var(--background)]/80 mb-4">
-              Subscribe for exclusive offers
-            </p>
-            <form className="flex">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 rounded-l-lg bg-[var(--background)] text-[var(--foreground)] placeholder-gray-500 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="btn-primary rounded-l-none rounded-r-lg"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
         </div>
 
         {/* Bottom */}
         <div className="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center text-[var(--background)]/60">
           <p className="text-sm">
-            &copy; 2026 Ribbentrop. All rights reserved.
+            &copy; 2026 <a href="https://www.facebook.com/RibbentropCtg" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--primary)] transition">Ribbentrop</a>. All rights reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0 text-sm">
             <Link href="#" className="hover:text-[var(--primary)] transition">

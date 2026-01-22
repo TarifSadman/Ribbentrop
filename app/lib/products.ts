@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
     name: "Premium Leather Handbag",
     description: "Exquisite crafted leather handbag with premium materials and timeless design",
     price: 129.99,
-    image: "/demo image.jpg",
+    image: "/demo handbag.jpg",
     category: "Bags",
     inStock: true,
   },
