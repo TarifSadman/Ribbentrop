@@ -8,14 +8,22 @@ interface AddToCartButtonProps {
   product: Product;
 }
 
+import Loader from "./Loader";
+
 export default function AddToCartButton({ product }: AddToCartButtonProps) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { addToCart } = useCart();
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
+
+    setIsLoading(true);
+    // Simulate network delay for better UX
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
     addToCart(
       {
         id: product.id,
@@ -25,6 +33,8 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       },
       quantity
     );
+
+    setIsLoading(false);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
@@ -41,14 +51,15 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
   }
 
   return (
-    <button
-      onClick={handleAddToCart}
-      className={`px-4 py-2 rounded-lg font-medium transition ${added
-          ? "bg-green-600 text-white"
-          : "btn-primary"
-        }`}
-    >
-      {added ? "✓ Added!" : "Add to Cart"}
-    </button>
+    <>
+      {isLoading && <Loader />}
+      <button
+        onClick={handleAddToCart}
+        className={`px-4 py-2 rounded-lg font-medium transition cursor-pointer ${added ? "bg-green-600 text-white" : "btn-primary"
+          }`}
+      >
+        {added ? "✓ Added!" : "Add to Cart"}
+      </button>
+    </>
   );
 }

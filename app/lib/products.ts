@@ -78,7 +78,7 @@ export const PRODUCTS: Product[] = [
     name: "Classic Collection Edition",
     description: "Timeless design that never goes out of style, handcrafted quality",
     price: 139.99,
-    image: "/demo image.jpg",
+    image: "/demo handbag.jpg",
     category: "Featured",
     inStock: true,
   },

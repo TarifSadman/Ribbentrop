@@ -5,12 +5,37 @@ import Link from "next/link";
 import { getProductById, PRODUCTS } from "@/app/lib/products";
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import { useCart } from "@/app/lib/cart-context";
+import Loader from "@/app/components/Loader";
 
 export default function ProductPage() {
   const params = useParams();
   const id = parseInt(params.id as string);
   const product = getProductById(id);
   const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const { addToCart } = useCart();
+
+  const handleAddToCart = async () => {
+    if (!product) return;
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    addToCart(
+      {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+      },
+      quantity
+    );
+
+    setIsLoading(false);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 2000);
+  };
 
   if (!product) {
     return (
@@ -37,6 +62,7 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
+      {isLoading && <Loader />}
       {/* Product Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
@@ -128,8 +154,12 @@ export default function ProductPage() {
                     </div>
                   </div>
 
-                  <button className="w-full btn-primary py-3 px-6 rounded-lg transition text-base">
-                    Add to Cart ({quantity})
+                  <button
+                    onClick={handleAddToCart}
+                    className={`w-full py-3 px-6 rounded-lg transition text-base cursor-pointer ${isAdded ? "bg-green-600 text-white" : "btn-primary"
+                      }`}
+                  >
+                    {isAdded ? "Added to Cart!" : `Add to Cart (${quantity})`}
                   </button>
                   <a
                     href="https://m.me/101975388289954"
