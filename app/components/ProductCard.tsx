@@ -74,19 +74,20 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Footer */}
           <div className="mt-4 flex items-center justify-between pt-4 border-t border-[var(--border)]/50">
             <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="text-lg sm:text-xl font-black text-[var(--foreground)]">
-                  ${product.price.toFixed(2)}
+              {discount > 0 && (
+                <span className="text-[10px] font-bold text-slate-400 line-through mb-0.5">
+                  ${product.compareAtPrice?.toFixed(2)}
                 </span>
-                {discount > 0 && (
-                  <span className="text-xs text-[var(--muted-foreground)] line-through">
-                    ${product.compareAtPrice?.toFixed(2)}
-                  </span>
-                )}
-              </div>
+              )}
+              <span className="text-lg font-bold text-[var(--foreground)]">
+                ${product.price.toFixed(2)}
+              </span>
             </div>
+
+
             <AddToCartButton product={product} />
           </div>
+
         </div>
       </div>
     </Link>

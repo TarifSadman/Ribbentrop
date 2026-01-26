@@ -161,9 +161,22 @@ export default function ProductPage() {
 
             {/* Price and Add to Cart */}
             <div className="border-t border-[var(--border)] pt-6">
-              <div className="text-4xl font-bold text-[var(--accent)] mb-6">
-                ${product.price.toFixed(2)}
+              <div className="flex items-baseline gap-4 mb-6">
+                <span className="text-4xl font-bold text-[var(--accent)]">
+                  ${product.price.toFixed(2)}
+                </span>
+                {product.compareAtPrice && product.compareAtPrice > product.price && (
+                  <>
+                    <span className="text-xl text-[var(--muted-foreground)] line-through">
+                      ${product.compareAtPrice.toFixed(2)}
+                    </span>
+                    <span className="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
+                      {Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)}% OFF
+                    </span>
+                  </>
+                )}
               </div>
+
 
               {product.inStock ? (
                 <div className="space-y-4">
