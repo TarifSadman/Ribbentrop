@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ribbentrop | Headless Shopify Storefront
 
-## Getting Started
+Ribbentrop is a high-performance, premium e-commerce storefront built with a headless architecture. It leverages the power of **Next.js 14+** and **TypeScript** to provide a lightning-fast shopping experience, seamlessly integrated with the **Shopify Storefront API**.
 
-First, run the development server:
+## 🚀 Key Features
 
+- **Headless Architecture**: Complete decoupling of the frontend (Next.js) and backend (Shopify) for maximum flexibility and performance.
+- **Dynamic Shopify Sync**: Real-time fetching of products and collections directly from Shopify via GraphQL.
+- **Advanced Filtering**: Navigate products effortlessly with collection-based and type-based filtering.
+- **Real-time Search**: A fast, client-side search engine for discovering products instantly.
+- **Premium UI/UX**: Modern, responsive design using Tailwind CSS with glassmorphism, smooth animations, and optimized image delivery.
+- **Persistent Cart**: A custom-built shopping cart using React Context API and LocalStorage for a seamless checkout journey.
+- **Performance Optimized**: Built with Server-Side Rendering (SSR) and optimized for SEO and core web vitals.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 14+](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **API**: [Shopify Storefront API](https://shopify.dev/docs/api/storefront) (GraphQL)
+- **State Management**: React Context API
+- **Deployment**: Optimized for Vercel
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/ribbentrop.git
+cd ribbentrop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configure Environment Variables
+Create a `.env` file in the root directory and add your Shopify credentials:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=your-store-name.myshopify.com
+NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN=your-access-token
+```
 
-## Learn More
+### 4. Run the development server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the storefront.
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/lib/shopify-prods.ts`: Core Shopify API integration and GraphQL queries.
+- `app/lib/cart-context.tsx`: Global state management for the shopping cart.
+- `app/products/`: Dynamic routing for product listing and detail pages.
+- `app/components/`: Reusable UI components (ProductCard, Header, CartIcon, etc.).
+- `app/globals.css`: Global styles and design system tokens.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 License
+This project is open-source and available under the MIT License.

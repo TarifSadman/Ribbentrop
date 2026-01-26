@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { getProductById, getAllProducts, type Product } from "@/app/lib/products";
+import { getProductById, getAllProducts, type Product, getTagColor } from "@/app/lib/products";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useCart } from "@/app/lib/cart-context";
@@ -113,10 +113,23 @@ export default function ProductPage() {
           {/* Details */}
           <div className="flex flex-col justify-between">
             <div>
-              <p className="text-sm text-[var(--primary)] font-semibold uppercase tracking-wide mb-2">
-                {product.category}
-              </p>
+              {product.tags && product.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {product.tags.map((tag, index) => {
+                    const colors = getTagColor(tag);
+                    return (
+                      <span
+                        key={index}
+                        className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${colors.bg} ${colors.text} ${colors.border}`}
+                      >
+                        {tag}
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
               <h1 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4">
+
                 {product.name}
               </h1>
 

@@ -13,6 +13,7 @@ interface ShopifyProductNode {
   title: string;
   description: string;
   productType: string;
+  tags: string[];
   availableForSale: boolean;
   images: {
     edges: Array<{
@@ -61,9 +62,11 @@ function mapShopifyProduct(node: ShopifyProductNode): Product {
       : undefined,
     image: node.images.edges[0]?.node.url ?? "/placeholder.jpg",
     category: node.productType || "General",
+    tags: node.tags || [],
     inStock: node.availableForSale,
   };
 }
+
 
 export async function getProducts(): Promise<Product[]> {
   const res = await fetch(
@@ -85,6 +88,7 @@ export async function getProducts(): Promise<Product[]> {
                   handle
                   description
                   productType
+                  tags
                   availableForSale
                   images(first: 1) {
                     edges {
@@ -195,6 +199,7 @@ export async function getProductsByCollection(handle: string): Promise<Product[]
                     handle
                     description
                     productType
+                    tags
                     availableForSale
                     images(first: 1) {
                       edges {

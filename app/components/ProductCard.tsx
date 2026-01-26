@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@/app/lib/products";
+import { Product, getTagColor } from "@/app/lib/products";
 import AddToCartButton from "./AddToCartButton";
 
 interface ProductCardProps {
@@ -45,10 +45,25 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Content */}
         <div className="flex flex-col flex-grow p-4 sm:p-5">
           <div className="flex-grow">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--primary)] mb-1 opacity-80">
-              {product.category}
-            </p>
+            {product.tags && product.tags.length > 0 ? (
+              <div className="flex flex-wrap gap-1.5 mb-2 min-h-[1.25rem]">
+                {product.tags.slice(0, 2).map((tag, index) => {
+                  const colors = getTagColor(tag);
+                  return (
+                    <span
+                      key={index}
+                      className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border ${colors.bg} ${colors.text} ${colors.border}`}
+                    >
+                      {tag}
+                    </span>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="min-h-[1.25rem] mb-2" /> // Keep spacing consistent
+            )}
             <h3 className="text-base sm:text-lg font-bold text-[var(--card-foreground)] leading-snug group-hover:text-[var(--primary)] transition-colors line-clamp-2 min-h-[3rem] sm:min-h-[3.5rem]">
+
               {product.name}
             </h3>
             <p className="mt-2 text-xs sm:text-sm text-[var(--muted-foreground)] line-clamp-2 leading-relaxed h-[2.5rem] sm:h-[3rem]">
