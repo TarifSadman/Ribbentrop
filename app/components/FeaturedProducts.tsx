@@ -1,9 +1,11 @@
-import { PRODUCTS } from "@/app/lib/products";
+import { getAllProducts } from "@/app/lib/products";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
 
-export default function FeaturedProducts() {
-  const featured = PRODUCTS.slice(0, 4);
+export default async function FeaturedProducts() {
+  const products = await getAllProducts();
+  const featured = products.slice(0, 4);
+
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--background)]">

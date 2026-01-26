@@ -2,24 +2,46 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { getProductById, PRODUCTS } from "@/app/lib/products";
-import { useState } from "react";
+import { getProductById, getAllProducts, type Product } from "@/app/lib/products";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useCart } from "@/app/lib/cart-context";
 import Loader from "@/app/components/Loader";
 
 export default function ProductPage() {
   const params = useParams();
-  const id = parseInt(params.id as string);
-  const product = getProductById(id);
+  const id = params.id as string;
+  const [product, setProduct] = useState<Product | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [quantity, setQuantity] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const { addToCart } = useCart();
 
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      const prod = await getProductById(id);
+
+      if (prod) {
+        setProduct(prod);
+        // Fetch related products
+        const allProds = await getAllProducts();
+        const related = allProds
+          .filter((p) => p.category === prod.category && p.id !== prod.id)
+          .slice(0, 3);
+        setRelatedProducts(related);
+      }
+
+      setIsLoading(false);
+    }
+    fetchData();
+  }, [id]);
+
   const handleAddToCart = async () => {
     if (!product) return;
-    setIsLoading(true);
+    setIsAddingToCart(true);
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     addToCart(
@@ -32,10 +54,14 @@ export default function ProductPage() {
       quantity
     );
 
-    setIsLoading(false);
+    setIsAddingToCart(false);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   if (!product) {
     return (
@@ -55,26 +81,25 @@ export default function ProductPage() {
     );
   }
 
-  // Get related products
-  const relatedProducts = PRODUCTS.filter(
-    (p) => p.category === product.category && p.id !== product.id
-  ).slice(0, 3);
-
   return (
     <div className="min-h-screen bg-[var(--background)]">
-      {isLoading && <Loader />}
+      {isAddingToCart && <Loader />}
+
       {/* Product Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           href="/products"
-          className="inline-flex items-center text-[var(--primary)] hover:text-[var(--primary)]/80 mb-8 font-medium transition"
+          className="inline-flex items-center gap-2 text-[var(--primary)] hover:text-[var(--primary)]/80 mb-8 font-medium transition"
         >
-          ← Back to Products
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M11.7071 4.29289C12.0976 4.68342 12.0976 5.31658 11.7071 5.70711L6.41421 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H6.41421L11.7071 18.2929C12.0976 18.6834 12.0976 19.3166 11.7071 19.7071C11.3166 20.0976 10.6834 20.0976 10.2929 19.7071L3.29289 12.7071C3.10536 12.5196 3 12.2652 3 12C3 11.7348 3.10536 11.4804 3.29289 11.2929L10.2929 4.29289C10.6834 3.90237 11.3166 3.90237 11.7071 4.29289Z" fill="currentColor" />
+          </svg>
+          Back to Products
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[var(--card)] rounded-lg p-8 shadow-sm mb-12 border border-[var(--border)]">
           {/* Image */}
-          <div className="flex items-center justify-center">
+          <div className="flex justify-center">
             <div className="relative w-full aspect-square bg-[var(--muted)] rounded-lg overflow-hidden">
               <Image
                 src={product.image}

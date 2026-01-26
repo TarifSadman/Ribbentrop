@@ -3,20 +3,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import CartIcon from "./CartIcon";
-import { PRODUCTS } from "@/app/lib/products";
+import { type Product, type Collection, getAllProducts, getAllCollections } from "@/app/lib/products";
+
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<typeof PRODUCTS>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [collections, setCollections] = useState<Collection[]>([]);
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const productsLinkRef = useRef<HTMLDivElement>(null);
 
-  // Get unique categories from products
-  const categories = [...new Set(PRODUCTS.map((p) => p.category))];
+  // Fetch products and collections
+  useEffect(() => {
+    async function fetchData() {
+      const [prods, cols] = await Promise.all([
+        getAllProducts(),
+        getAllCollections()
+      ]);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setProducts(prods);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCollections(cols);
+    }
+    fetchData();
+  }, []);
+
 
   // Real-time search functionality
   useEffect(() => {
@@ -26,7 +42,7 @@ export default function Header() {
     }
 
     const query = searchQuery.toLowerCase();
-    const filtered = PRODUCTS.filter(
+    const filtered = products.filter(
       (product) =>
         product.name.toLowerCase().includes(query) ||
         product.description.toLowerCase().includes(query) ||
@@ -34,7 +50,9 @@ export default function Header() {
     );
 
     setSearchResults(filtered);
-  }, [searchQuery]);
+  }, [searchQuery, products]);
+
+
 
   // Focus input when modal opens
   useEffect(() => {
@@ -140,26 +158,22 @@ export default function Header() {
                     onMouseLeave={() => setIsProductsDropdownOpen(false)}
                   >
                     <Link
-                      href="/products?category=Home-Decor"
-                      className="block px-4 py-2 text-[var(--card-foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition"
+                      href="/products"
+                      className="block px-4 py-2 text-[var(--card-foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition font-bold border-b border-[var(--border)]"
                       onClick={() => setIsProductsDropdownOpen(false)}
                     >
-                      Home Decor
+                      All Collections
                     </Link>
-                    <Link
-                      href="/products?category=Bags"
-                      className="block px-4 py-2 text-[var(--card-foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition"
-                      onClick={() => setIsProductsDropdownOpen(false)}
-                    >
-                      Bags
-                    </Link>
-                    <Link
-                      href="/products?category=Accessories"
-                      className="block px-4 py-2 text-[var(--card-foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition"
-                      onClick={() => setIsProductsDropdownOpen(false)}
-                    >
-                      Accessories
-                    </Link>
+                    {collections.map((collection) => (
+                      <Link
+                        key={collection.id}
+                        href={`/products?collection=${collection.handle}`}
+                        className="block px-4 py-2 text-[var(--card-foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition"
+                        onClick={() => setIsProductsDropdownOpen(false)}
+                      >
+                        {collection.title}
+                      </Link>
+                    ))}
                   </div>
                 )}
               </div>
@@ -265,33 +279,24 @@ export default function Header() {
                 <Link
                   href="/products"
                   className="block px-4 py-2 text-[var(--foreground)] hover:bg-[var(--secondary)] hover:text-[var(--secondary-foreground)] rounded font-medium transition"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   All Products
                 </Link>
                 <div className="pl-4">
-                  <Link
-                    href="/products?category=Home-Decor"
-                    className="block px-4 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--secondary-foreground)] rounded transition"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Home Decor
-                  </Link>
-                  <Link
-                    href="/products?category=Bags"
-                    className="block px-4 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--secondary-foreground)] rounded transition"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Bags
-                  </Link>
-                  <Link
-                    href="/products?category=Accessories"
-                    className="block px-4 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--secondary-foreground)] rounded transition"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Accessories
-                  </Link>
+                  {collections.map((collection) => (
+                    <Link
+                      key={collection.id}
+                      href={`/products?collection=${collection.handle}`}
+                      className="block px-4 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--secondary-foreground)] rounded transition"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {collection.title}
+                    </Link>
+                  ))}
                 </div>
               </div>
+
 
               <Link
                 href="/about"

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export interface CartItem {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -13,12 +13,13 @@ export interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addToCart: (item: Omit<CartItem, "quantity">, quantity: number) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
 }
+
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -31,13 +32,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart));
+        const parsedCart = JSON.parse(savedCart);
+        if (parsedCart && Array.isArray(parsedCart)) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setItems(parsedCart);
+        }
       } catch (error) {
         console.error("Failed to load cart:", error);
       }
     }
     setMounted(true);
   }, []);
+
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
@@ -47,6 +53,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items, mounted]);
 
   const addToCart = (
+
     item: Omit<CartItem, "quantity">,
     quantity: number
   ) => {
@@ -63,11 +70,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  const updateQuantity = (id: number, quantity: number) => {
+  const updateQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) {
       removeFromCart(id);
     } else {
@@ -78,6 +85,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       );
     }
   };
+
 
   const clearCart = () => {
     setItems([]);

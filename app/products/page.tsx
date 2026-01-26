@@ -2,37 +2,53 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { PRODUCTS } from "@/app/lib/products";
+import { getAllProducts, getAllCollections, getProductsByCollection, type Product, type Collection } from "@/app/lib/products";
+
 import ProductCard from "@/app/components/ProductCard";
 
 function ProductsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category");
+  const initialCollection = searchParams.get("collection");
 
+  const [products, setProducts] = useState<Product[]>([]);
+  const [collections, setCollections] = useState<Collection[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState("featured");
-  const [filterCategory, setFilterCategory] = useState("all");
 
-  // Sync with URL param
+  const filterCollection = initialCollection || "all";
+
+  // Initial load of collections
   useEffect(() => {
-    if (initialCategory) {
-      // Find the matching category from PRODUCTS to ensure case matching if needed, 
-      // or just use the param if it matches exactly.
-      // The links in Header use "Bags", "Home", "Accessories" which match PRODUCTS data.
-      setFilterCategory(initialCategory);
-    } else {
-      setFilterCategory("all");
+    async function fetchInitialData() {
+      const cols = await getAllCollections();
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCollections(cols);
     }
-  }, [initialCategory]);
+    fetchInitialData();
+  }, []);
 
-  let displayProducts = [...PRODUCTS];
+  // Fetch products based on selected collection or all
+  useEffect(() => {
+    async function fetchProducts() {
+      setIsLoading(true);
+      let data: Product[] = [];
 
-  // Filter by category
-  if (filterCategory !== "all") {
-    displayProducts = displayProducts.filter(
-      (p) => p.category === filterCategory
-    );
-  }
+      if (filterCollection !== "all") {
+        data = await getProductsByCollection(filterCollection);
+      } else {
+        data = await getAllProducts();
+      }
+
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setProducts(data);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsLoading(false);
+    }
+    fetchProducts();
+  }, [filterCollection]);
+
+  let displayProducts = [...products];
 
   // Sort
   switch (sortBy) {
@@ -49,7 +65,13 @@ function ProductsContent() {
       break;
   }
 
-  const categories = ["all", ...new Set(PRODUCTS.map((p) => p.category))];
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--primary)]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
@@ -70,38 +92,49 @@ function ProductsContent() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar Filters */}
           <div className="lg:col-span-1">
-            <div className="bg-[var(--card)] rounded-lg p-6 shadow-sm border border-[var(--border)]">
-              {/* Category Filter */}
+            <div className="bg-[var(--card)] rounded-lg p-6 shadow-sm border border-[var(--border)] sticky top-24">
+              {/* Collection Filter */}
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-[var(--foreground)] mb-4">
-                  Category
+                <h3 className="text-lg font-bold text-[var(--foreground)] mb-4 border-b border-[var(--border)] pb-2 uppercase tracking-tighter">
+                  Collections
                 </h3>
-                <div className="space-y-3">
-                  {categories.map((category) => (
+                <div className="space-y-2">
+                  <label className="flex items-center cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="collection"
+                      value="all"
+                      checked={filterCollection === "all"}
+                      onChange={() => {
+                        const params = new URLSearchParams(searchParams.toString());
+                        params.delete("collection");
+                        router.push(`/products?${params.toString()}`);
+                      }}
+                      className="w-4 h-4 text-[var(--primary)] accent-[var(--primary)]"
+                    />
+                    <span className="ml-3 text-[var(--foreground)] font-medium group-hover:text-[var(--primary)] transition">
+                      All Products
+                    </span>
+                  </label>
+                  {collections.map((col) => (
                     <label
-                      key={category}
-                      className="flex items-center cursor-pointer"
+                      key={col.id}
+                      className="flex items-center cursor-pointer group"
                     >
                       <input
                         type="radio"
-                        name="category"
-                        value={category}
-                        checked={filterCategory === category}
+                        name="collection"
+                        value={col.handle}
+                        checked={filterCollection === col.handle}
                         onChange={(e) => {
-                          const newCategory = e.target.value;
-                          setFilterCategory(newCategory);
-                          const params = new URLSearchParams(searchParams);
-                          if (newCategory === "all") {
-                            params.delete("category");
-                          } else {
-                            params.set("category", newCategory);
-                          }
+                          const params = new URLSearchParams(searchParams.toString());
+                          params.set("collection", e.target.value);
                           router.push(`/products?${params.toString()}`);
                         }}
-                        className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)] rounded cursor-pointer accent-[var(--primary)]"
+                        className="w-4 h-4 text-[var(--primary)] accent-[var(--primary)]"
                       />
-                      <span className="ml-3 text-[var(--foreground)] capitalize hover:text-[var(--primary)] transition">
-                        {category === "all" ? "All Products" : category && category.replace("-", " ")}
+                      <span className="ml-3 text-[var(--foreground)] font-medium group-hover:text-[var(--primary)] transition">
+                        {col.title}
                       </span>
                     </label>
                   ))}
@@ -109,14 +142,14 @@ function ProductsContent() {
               </div>
 
               {/* Sort By */}
-              <div>
-                <h3 className="text-lg font-semibold text-[var(--foreground)] mb-4">
-                  Sort By
+              <div className="pt-4 border-t border-[var(--border)]">
+                <h3 className="text-sm font-bold text-[var(--muted-foreground)] mb-4 uppercase tracking-wider">
+                  Sort Items
                 </h3>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm"
                 >
                   <option value="featured">Featured</option>
                   <option value="price-low">Price: Low to High</option>
@@ -126,6 +159,8 @@ function ProductsContent() {
               </div>
             </div>
           </div>
+
+
 
           {/* Products Grid */}
           <div className="lg:col-span-3">
@@ -148,6 +183,7 @@ function ProductsContent() {
     </div>
   );
 }
+
 
 export default function ProductsPage() {
   return (
