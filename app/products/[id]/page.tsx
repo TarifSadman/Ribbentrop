@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useCart } from "@/app/lib/cart-context";
 import Loader from "@/app/components/Loader";
+import ProductCard from "@/app/components/ProductCard";
+
 
 export default function ProductPage() {
   const params = useParams();
@@ -244,35 +246,10 @@ export default function ProductPage() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedProducts.map((relatedProduct) => (
-                <div
-                  key={relatedProduct.id}
-                  className="bg-[var(--card)] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border border-[var(--border)]"
-                >
-                  <div className="relative h-48 w-full overflow-hidden bg-[var(--muted)]">
-                    <Image
-                      src={relatedProduct.image}
-                      alt={relatedProduct.name}
-                      fill
-                      className="object-cover hover:scale-105 transition-transform"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-[var(--card-foreground)] line-clamp-2">
-                      {relatedProduct.name}
-                    </h3>
-                    <p className="text-2xl font-bold text-[var(--accent)] mt-2">
-                      ${relatedProduct.price.toFixed(2)}
-                    </p>
-                    <Link
-                      href={`/products/${relatedProduct.id}`}
-                      className="mt-4 block btn-primary py-2 px-4 rounded-lg text-center transition"
-                    >
-                      View Product
-                    </Link>
-                  </div>
-                </div>
+                <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}
             </div>
+
           </div>
         )}
       </div>
