@@ -96,10 +96,10 @@ export default function Contact() {
               Phone
             </h3>
             <a
-              href="tel:+1234567890"
+              href="tel:+8801855464672"
               className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition"
             >
-              +1 (234) 567-890
+              +8801855464672
             </a>
           </div>
 
@@ -131,7 +131,7 @@ export default function Contact() {
             </h3>
             <p className="text-[var(--muted-foreground)]">
               123 Business Street<br />
-              New York, NY 10001
+              Halishahar, Chattogram
             </p>
           </div>
         </div>
