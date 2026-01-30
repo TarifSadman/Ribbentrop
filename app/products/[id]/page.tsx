@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useCart } from "@/app/lib/cart-context";
 import Loader from "@/app/components/Loader";
 import ProductCard from "@/app/components/ProductCard";
+import AIProductHighlights from "@/app/components/AIProductHighlights";
 
 
 export default function ProductPage() {
@@ -148,7 +149,15 @@ export default function ProductPage() {
                 {product.description}
               </p>
 
-              <div className="mb-8">
+              {/* OpenAI Integration Demo */}
+              <AIProductHighlights
+                productId={product.id}
+                productName={product.name}
+                productDescription={product.description}
+                productTags={product.tags || []}
+              />
+
+              <div className="mb-8 mt-12">
                 <h3 className="text-sm font-semibold text-[var(--foreground)] mb-3">
                   Key Features:
                 </h3>

@@ -25,7 +25,7 @@ Ribbentrop is a high-performance, premium e-commerce storefront built with a hea
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/ribbentrop.git
+git clone https://github.com/TarifSadman/ribbentrop.git
 cd ribbentrop
 ```
 
